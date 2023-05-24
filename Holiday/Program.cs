@@ -19,26 +19,12 @@ if (app.Environment.IsDevelopment())
 }
 
 
-//ISearchService searchService = null;
-//using (var serviceScope = app.Services.CreateScope())
-//{
-//    var services = serviceScope.ServiceProvider;
-
-//    searchService = services.GetRequiredService<ISearchService>();
-//}
-
-app.MapGet("/weatherforecast", (DateTime? start, DateTime? end) =>
+app.MapGet("/getHoliday", (DateTime start, DateTime end) =>
 {
     var searchSearch = new SearchService();
-    var forecast =
-        new
-        {
-            Time = DateOnly.FromDateTime(DateTime.Now)
-        };
-    return forecast;
+    var result = searchSearch.IsHoliday(start, end);
+    return result;
 })
-.WithName("GetWeatherForecast")
-.WithDisplayName("displayname")
 .WithOpenApi();
 
 app.Run();
