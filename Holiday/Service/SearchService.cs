@@ -1,32 +1,10 @@
 ﻿using Holiday.Helper;
 using Holiday.Model;
-using System.Linq.Expressions;
 
 namespace Holiday.Service
 {
     public class SearchService : ISearchService
     {
-        /// <summary>
-        /// 查询所有法定假期
-        /// </summary>
-        /// <param name="startDate"></param>
-        /// <param name="endDate"></param>
-        /// <returns></returns>
-        public List<DateTime> Search(DateTime? startDate, DateTime? endDate)
-        {
-            //获取配置
-            var config = SearchConfig(null, startDate, endDate);
-
-
-            //获取所有休假的周末
-
-            //法定假期
-            //var config = SearchConfig( , startDate, endDate);
-
-
-            return new List<DateTime> { };
-        }
-
         /// <summary>
         /// 获取配置情况
         /// </summary>
@@ -34,7 +12,7 @@ namespace Holiday.Service
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public List<HolidayConfig>? SearchConfig(int? type, DateTime? startDate, DateTime? endDate)
+        public List<HolidayConfig>? SearchConfig(DateTime? startDate, DateTime? endDate)
         {
             var data = SqliteHelper.GetConfig();
 
@@ -62,39 +40,12 @@ namespace Holiday.Service
             return result;
         }
 
-
-        /// <summary>
-        /// 获取默认的周末
-        /// </summary>
-        /// <param name="startDate"></param>
-        /// <param name="endDate"></param>
-        /// <returns></returns>
-        public List<DateTime> GetWeekend(DateTime? startDate, DateTime? endDate)
-        {
-            //固定的周末中移除需要上班的日期
-            var weekend = GetWeekend(startDate, endDate);
-
-
-            return new List<DateTime> { };
-        }
-
-        /// <summary>
-        /// 获取默认的周末
-        /// </summary>
-        /// <param name="startDate"></param>
-        /// <param name="endDate"></param>
-        /// <returns></returns>
-        public List<DateTime> GetDefaultWeekend(DateTime? startDate, DateTime? endDate)
-        {
-            return new List<DateTime> { };
-        }
-
         /// <summary>
         /// 判断是否为假期 - 判断单日
         /// </summary>
         /// <param name="day"></param>
         /// <returns></returns>
-        public bool IsHoliday(List<HolidayConfig> config, DateTime day)
+        public bool IsHoliday(List<HolidayConfig>? config, DateTime day)
         {
             //获取到配置为假期
             if (config != null && config!.Count != 0)
@@ -122,12 +73,19 @@ namespace Holiday.Service
             return false;
         }
 
+
+        /// <summary>
+        /// 范围判断
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
         public List<HolidayConfig> IsHoliday(DateTime start, DateTime end)
         {
             var tempDay = start;
             var result = new List<HolidayConfig>();
             //获取所有配置
-            var config = SearchConfig(null, start, end);
+            var config = SearchConfig(start, end);
 
             while (tempDay < end)
             {
