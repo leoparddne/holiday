@@ -14,7 +14,7 @@ namespace Holiday.Service
         /// <returns></returns>
         public List<HolidayConfig>? SearchConfig(DateTime? startDate, DateTime? endDate)
         {
-            var data = SqliteHelper.GetConfig();
+            var data = SqliteHelper.GetConfig(startDate, endDate);
 
             if (data == null)
             {
