@@ -11,7 +11,7 @@ namespace Holiday.Test
         [TestMethod]
         public void Get()
         {
-            var result = SqliteHelper.GetConfig();
+            var result = SqliteHelper.GetConfig(DateTime.Now, DateTime.Now);
             Console.WriteLine(JsonConvert.SerializeObject(result));
         }
 

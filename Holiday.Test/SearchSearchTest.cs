@@ -1,5 +1,6 @@
 using Holiday.Model;
 using Holiday.Service;
+using Newtonsoft.Json;
 
 namespace Holiday.Test
 {
@@ -84,6 +85,14 @@ namespace Holiday.Test
                      Type= Consts.ConfigTypeEnum.Workday
                 }
             };
+        }
+
+
+        [TestMethod]
+        public void Range()
+        {
+            var result = service.IsHoliday(new DateTime(2023, 5, 6), new DateTime(2023, 10, 6));
+            Console.WriteLine(JsonConvert.SerializeObject(result));
         }
     }
 }
