@@ -73,11 +73,15 @@ namespace Holiday.Service
         public bool IsHoliday(List<HolidayConfig> config, DateTime day)
         {
             //获取到配置为假期
-            if (config != null || config!.Count != 0)
+            if (config != null && config!.Count != 0)
             {
-                if (config.First().Type == Consts.ConfigTypeEnum.Holiday)
+                var configDay = config.FirstOrDefault(f => f.Day == day.Date);
+                if (configDay != null)
                 {
-                    return true;
+                    if (configDay.Type == Consts.ConfigTypeEnum.Holiday)
+                    {
+                        return true;
+                    }
                 }
             }
 
