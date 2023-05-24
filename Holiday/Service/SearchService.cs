@@ -1,4 +1,5 @@
-﻿using Holiday.Model;
+﻿using Holiday.Helper;
+using Holiday.Model;
 using System.Linq.Expressions;
 
 namespace Holiday.Service
@@ -33,9 +34,32 @@ namespace Holiday.Service
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public List<HolidayConfig> SearchConfig(int? type, DateTime? startDate, DateTime? endDate)
+        public List<HolidayConfig>? SearchConfig(int? type, DateTime? startDate, DateTime? endDate)
         {
-            return new List<HolidayConfig> { };
+            var data = SqliteHelper.GetConfig();
+
+            if (data == null)
+            {
+                return null;
+            }
+
+            var result = new List<HolidayConfig>();
+            foreach (var item in data)
+            {
+                DateTime day;
+                if (!DateTime.TryParse(item.day, out day))
+                {
+                    throw new Exception($"异常配置项{item.day}");
+                }
+                Convert.ToDateTime(item.day);
+                result.Add(new HolidayConfig
+                {
+                    Day = day,
+                    Type = (Consts.ConfigTypeEnum)item.type
+                });
+            }
+
+            return result;
         }
 
 

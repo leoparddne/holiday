@@ -44,6 +44,14 @@ namespace Holiday.Test
             Assert.IsTrue(result);
         }
 
+
+        [TestMethod]
+        public void HolidayTest()
+        {
+            var result = service.IsHoliday(MockConfig(), new DateTime(2023, 5, 2));
+            Assert.IsTrue(result);
+        }
+
         [TestMethod]
         public void Workday()
         {
