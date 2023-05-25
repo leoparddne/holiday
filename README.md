@@ -1,7 +1,8 @@
 # Holiday
 
 #### 介绍
-工作日、法定假日接口
+工作日、法定假日接口。
+支持安装成系统服务(windows,linux);
 
 #### 软件架构
 .net 7 miniapi
