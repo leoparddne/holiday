@@ -21,8 +21,7 @@ namespace Holiday.Helper
                 AddWhere(where, $"day<={str}");
             }
 
-
-            var db = new SQLiteConnection("./Holiday.db");
+            var db = new SQLiteConnection($"{System.AppDomain.CurrentDomain.BaseDirectory}/Holiday.db");
             var configs = db.Query<HolidayDBConfig>("select * from holidayconfig").ToList();
             return configs;
         }

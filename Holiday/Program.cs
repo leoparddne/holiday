@@ -7,6 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+if (System.OperatingSystem.IsWindows())
+{
+    builder.Host.UseWindowsService();
+}
+
+if (System.OperatingSystem.IsLinux())
+{
+    builder.Host.UseSystemd();
+}
+
 //builder.Services.AddSingleton<ISearchService, SearchService>();
 
 var app = builder.Build();
@@ -26,5 +36,7 @@ app.MapGet("/getHoliday", (DateTime start, DateTime end) =>
     return result;
 })
 .WithOpenApi();
+
+
 
 app.Run();
