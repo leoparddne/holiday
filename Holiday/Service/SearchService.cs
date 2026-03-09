@@ -87,7 +87,7 @@ namespace Holiday.Service
             //获取所有配置
             var config = SearchConfig(start, end);
 
-            while (tempDay < end)
+            while (tempDay <= end)
             {
                 var isHoliday = IsHoliday(config, tempDay);
                 result.Add(new HolidayConfig
